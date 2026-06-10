@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,7 +13,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Metadata export (title, description, etc.)
 export const metadata: Metadata = {
   title: "Festive Lighting Pros: Outdoor Lighting Solutions Company",
   description:
@@ -34,18 +34,16 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/og-image.png",
+        url: "/favicon.png",
         alt: "Festive Lighting Pros",
       },
     ],
   },
 };
 
-// Separate viewport export
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  // icons is not part of Viewport type, it stays in metadata
 };
 
 export default function RootLayout({
@@ -60,7 +58,8 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        {children}
+        <Header />
+        <main>{children}</main>
       </body>
     </html>
   );
