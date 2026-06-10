@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -12,6 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Metadata export (title, description, etc.)
 export const metadata: Metadata = {
   title: "Festive Lighting Pros: Outdoor Lighting Solutions Company",
   description:
@@ -21,4 +22,46 @@ export const metadata: Metadata = {
     "Christmas lights",
     "landscape lighting",
     "festive lighting",
-    "light installation
+    "light installation",
+  ],
+  authors: [{ name: "Festive Lighting Pros" }],
+  robots: "index, follow",
+  openGraph: {
+    title: "Festive Lighting Pros | Outdoor Lighting Solutions",
+    description:
+      "Professional outdoor lighting installation for homes and businesses.",
+    type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        alt: "Festive Lighting Pros",
+      },
+    ],
+  },
+};
+
+// Separate viewport export
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  // icons is not part of Viewport type, it stays in metadata
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
+      <body className="min-h-full flex flex-col bg-background text-foreground">
+        {children}
+      </body>
+    </html>
+  );
+}
