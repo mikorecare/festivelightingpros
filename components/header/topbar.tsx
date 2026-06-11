@@ -1,7 +1,16 @@
+"use client";
+
 import { Phone } from "lucide-react";
 import { SocialIcon } from "../icons/social-media-icons";
+import { useEffect, useState } from "react";
 
 export default function TopBar() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <div className="hidden md:block bg-elementor-primary">
       <div className="px-4 md:px-8">
@@ -23,26 +32,25 @@ export default function TopBar() {
                 <span className="font-bold relative z-10 text-[var(--e-global-color-accent)]">
                   Festive Lighting Pros
                 </span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 500 150"
-                  preserveAspectRatio="none"
-                  className="absolute bottom-[-2] left-0 w-full h-5 -z-0"
-                  aria-hidden="true"
-                  style={{
-                    strokeDasharray: 500,
-                    strokeDashoffset: 500,
-                    animation: "underline-draw 2s ease-in-out infinite alternate",
-                  }}
-                >
-                  <path
-                    d="M7.7,145.6C109,125,299.9,116.2,401,121.3c42.1,2.2,87.6,11.8,87.3,25.7"
-                    fill="none"
-                    stroke="var(--e-global-color-accent)"
-                    strokeWidth="6"
-                    strokeLinecap="round"
-                  />
-                </svg>
+                {mounted && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 500 150"
+                    preserveAspectRatio="none"
+                    className="absolute bottom-[-2px] left-0 w-full h-5 -z-0"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M7.7,145.6C109,125,299.9,116.2,401,121.3c42.1,2.2,87.6,11.8,87.3,25.7"
+                      fill="none"
+                      stroke="var(--e-global-color-accent)"
+                      strokeWidth="6"
+                      strokeLinecap="round"
+                      strokeDasharray="500"
+                      strokeDashoffset="500"
+                    />
+                  </svg>
+                )}
               </span>
             </h6>
           </div>
@@ -66,6 +74,21 @@ export default function TopBar() {
           </div>
         </div>
       </div>
+
+      {/* Add the keyframe animation to global styles - you can put this in your global.css */}
+      <style jsx>{`
+        @keyframes underline-draw {
+          0% {
+            stroke-dashoffset: 500;
+          }
+          100% {
+            stroke-dashoffset: 0;
+          }
+        }
+        svg path {
+          animation: underline-draw 2s ease-in-out infinite alternate;
+        }
+      `}</style>
     </div>
   );
 }
