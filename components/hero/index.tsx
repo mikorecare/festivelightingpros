@@ -183,7 +183,7 @@ export default function HeroCarousel() {
 
   return (
     <div
-      className="relative w-full overflow-hidden"
+      className="relative w-full overflow-hidden h-auto lg:h-[475px]"
       ref={carouselRef}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
@@ -199,18 +199,18 @@ export default function HeroCarousel() {
         {extendedSlides.map((slide, index) => (
           <div
             key={index}
-            className="w-full flex-shrink-0 relative min-h-[300px] md:min-h-[400px] bg-cover bg-center"
+            className="w-full flex-shrink-0 relative min-h-[300px] md:min-h-[475px] bg-cover bg-center"
             style={{ backgroundImage: `url(${slide.image})` }}
           >
             <div className="absolute inset-0 bg-black/40" />
             <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-              <div className="text-white text-4xl md:text-6xl lg:text-7xl font-bold mb-2">
+              <div className="text-white tracking-wide text-4xl md:text-6xl lg:text-7xl font-extrabold mb-2 font-poppins">
                 {slide.title}
-                <p className="text-[var(--e-global-color-accent)] text-3xl md:text-5xl lg:text-6xl mt-2">
+                <p className="text-[var(--e-global-color-accent)] tracking-wide text-3xl md:text-5xl font-extrabold lg:text-7xl mt-2 font-poppins">
                   {slide.subtitle}
                 </p>
               </div>
-              <p className="text-white text-lg md:text-xl mt-4 max-w-2xl">
+              <p className="text-white font-bold text-lg md:text-3xl mt-4 max-w-2xl">
                 {slide.description}
               </p>
               <Link

@@ -15,25 +15,25 @@ import {
 const services = [
   {
     title: "Landscape",
-    subtitle: "Lighting",
+    subtitle: "",
     href: "/landscape-lighting",
     icon: LandscapeServiceIcon,
   },
   {
     title: "Permanent",
-    subtitle: "Lighting",
+    subtitle: "",
     href: "/permanent-lighting",
     icon: PermanentServiceIcon,
   },
   {
     title: "Patio",
-    subtitle: "Lighting",
+    subtitle: "",
     href: "/patio-lighting",
     icon: PatioServiceIcon,
   },
   {
-    title: "Special",
-    subtitle: "Events",
+    title: "Special Events",
+    subtitle: "",
     href: "/special-events",
     icon: SpecialEventsServiceIcon,
   },
@@ -107,36 +107,47 @@ export default function ServicesGrid() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="flex flex-wrap w-full justify-between items-center py-2 gap-4 md:gap-6"
+            className="py-2"
           >
-            {services.map((service, index) => {
-              const Icon = service.icon;
-              return (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{
-                    type: "spring" as const,
-                    stiffness: 400,
-                    damping: 17,
-                  }}
-                >
-                  <Link
-                    href={service.href}
-                    className="group flex flex-row gap-2 items-center text-center transition-colors duration-300"
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4 md:gap-6">
+              {services.map((service, index) => {
+                const Icon = service.icon;
+                return (
+                  <motion.div
+                    key={index}
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{
+                      type: "spring" as const,
+                      stiffness: 400,
+                      damping: 17,
+                    }}
+                    className="flex justify-center"
                   >
-                    <Icon
-                      className="text-gray-800 w-10 h-10 md:w-15 md:h-15 transition-all duration-300 group-hover:text-brand-accent"
-                      size={32}
-                    />
-                    <span className="text-lg md:text-xl font-semibold text-gray-800 group-hover:text-brand-accent transition-colors duration-300 whitespace-nowrap">
-                      {service.title}
-                    </span>
-                  </Link>
-                </motion.div>
-              );
-            })}
+                    <Link
+                      href={service.href}
+                      className="group flex flex-row gap-2 items-center transition-colors duration-300"
+                    >
+                      <Icon
+                        className="text-gray-800 w-10 h-10 md:w-15 md:h-15 transition-all duration-300 group-hover:text-brand-accent flex-shrink-0"
+                        size={32}
+                      />
+                      {/* Fixed width container for text on mobile */}
+                      <div className="flex flex-col gap-0.5 text-start min-w-[120px] md:min-w-0">
+                        <span className="text-lg md:text-xl font-semibold text-gray-800 group-hover:text-brand-accent transition-colors duration-300 whitespace-nowrap leading-tight">
+                          {service.title}
+                        </span>
+                        {service?.subtitle && (
+                          <span className="text-md md:text-xs font-semibold text-brand-accent group-hover:text-brand-accent transition-colors duration-300 whitespace-nowrap leading-tight -mt-1">
+                            {service.subtitle}
+                          </span>
+                        )}
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
           </motion.div>
         </div>
       </div>

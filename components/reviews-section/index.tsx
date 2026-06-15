@@ -107,7 +107,7 @@ export default function ReviewsSection() {
             </p>
 
             {/* Navigation Arrows */}
-            <div className="flex gap-4">
+            <div className="flex gap-4 md:justify-start">
               <button
                 onClick={handlePrev}
                 className="w-12 h-12 rounded-full bg-[#ff890b]/20 hover:bg-[#ff890b] text-[#ff890b] hover:text-white flex items-center justify-center transition-all duration-300"
