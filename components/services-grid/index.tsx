@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import {
   LandscapeServiceIcon,
   PermanentServiceIcon,
@@ -56,44 +57,87 @@ const services = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0,
+    rotate: -10,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    rotate: 0,
+    transition: {
+      type: "spring" as const,
+      stiffness: 260,
+      damping: 20,
+      duration: 0.5,
+    },
+  },
+};
+
 export default function ServicesGrid() {
   return (
-    <div className="w-full bg-[var(--e-global-color-primary)] py-6">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
-        {/* Section Title */}
-        <div className="text-center mb-6">
-          <h4 className="text-white text-lg md:text-xl font-semibold">
-            Start Your Outdoor Lighting Design Ideas Here
-          </h4>
-        </div>
+    <div className="w-full bg-[var(--e-global-color-primary)] py-2 pb-10">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="text-center mb-2"
+      >
+        <h4 className="uppercase text-white text-lg md:text-xl font-medium tracking-[1.5px]">
+          Start Your Outdoor Lighting Design Ideas Here
+        </h4>
+      </motion.div>
 
-        {/* Services Grid */}
-        <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
-          {services.map((service, index) => {
-            const Icon = service.icon;
-            return (
-              <Link
-                key={index}
-                href={service.href}
-                className="group flex flex-col items-center text-center transition-all duration-300 hover:scale-105"
-              >
-                {/* Icon Circle */}
-                <div className="w-14 h-14 md:w-16 md:h-16 bg-white/10 rounded-full flex items-center justify-center transition-all duration-300 group-hover:bg-white/20 mb-1">
-                  <Icon
-                    className="text-brand-accent w-7 h-7 md:w-8 md:h-8"
-                    size={32}
-                  />
-                </div>
-                {/* Title */}
-                <span className="text-xs font-semibold text-white group-hover:text-brand-accent transition-colors duration-300 whitespace-nowrap">
-                  {service.title}
-                </span>
-                <span className="text-[10px] text-brand-accent whitespace-nowrap">
-                  {service.subtitle}
-                </span>
-              </Link>
-            );
-          })}
+      <div className="w-full bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="flex flex-wrap w-full justify-between items-center py-2 gap-4 md:gap-6"
+          >
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              return (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{
+                    type: "spring" as const,
+                    stiffness: 400,
+                    damping: 17,
+                  }}
+                >
+                  <Link
+                    href={service.href}
+                    className="group flex flex-row gap-2 items-center text-center transition-colors duration-300"
+                  >
+                    <Icon
+                      className="text-gray-800 w-10 h-10 md:w-15 md:h-15 transition-all duration-300 group-hover:text-brand-accent"
+                      size={32}
+                    />
+                    <span className="text-lg md:text-xl font-semibold text-gray-800 group-hover:text-brand-accent transition-colors duration-300 whitespace-nowrap">
+                      {service.title}
+                    </span>
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </motion.div>
         </div>
       </div>
     </div>
